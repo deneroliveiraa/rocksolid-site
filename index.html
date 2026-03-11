@@ -1,11 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RockSolid Construction & Consulting LLC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2e45;
+  --navy-dark: #111e2e;
+  --green: #3a7d4f;
+  --green-light: #4e9e68;
+  --green-pale: #eaf4ee;
+  --white: #ffffff;
+  --off-white: #f8f8f6;
+  --gray: #8a9aaa;
+  --gray-light: #f0f2f4;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+/* NAVBAR */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6%; height: 72px;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(26,46,69,0.08);
+  transition: box-shadow .3s;
+}
+.navbar.scrolled { box-shadow: 0 4px 24px rgba(26,46,69,.1); }
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.logo svg { width: 38px; height: 38px; }
+.logo-text strong { display: block; font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); }
+.logo-text small { font-size: .58rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
+.nav-links { display: flex; list-style: none; gap: 4px; align-items: center; }
+.nav-links a { text-decoration: none; font-size: .85rem; font-weight: 500; color: var(--navy); padding: 8px 14px; border-radius: 6px; transition: background .2s; }
+.nav-links a:hover { background: var(--gray-light); }
+.nav-links a.active { color: var(--green); font-weight: 600; }
+.nav-cta { background: var(--navy) !important; color: var(--white) !important; font-weight: 600 !important; border-radius: 6px !important; }
+.nav-cta:hover { background: var(--green) !important; }
+.hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); }
+
+/* HERO */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: var(--navy-dark); }
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80');
+  background-size: cover; background-position: center;
+  opacity: .28; animation: zoomBg 14s ease-in-out infinite alternate;
+}
+@keyframes zoomBg { from { transform: scale(1.02); } to { transform: scale(1.1); } }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(110deg, var(--navy-dark) 42%, rgba(17,30,46,.4) 80%); }
+.hero-content { position: relative; z-index: 2; padding: 140px 6% 120px; max-width: 800px; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(58,125,79,.18); border: 1px solid rgba(58,125,79,.45);
+  color: #7ecfa0; font-size: .74rem; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 28px; animation: fadeUp .7s ease both;
+}
+.hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1;transform:scale(1); } 50% { opacity:.4;transform:scale(1.5); } }
+.hero-content h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 7vw, 5.8rem); line-height: 1.04; color: var(--white); margin-bottom: 24px; animation: fadeUp .7s .15s ease both; }
+.hero-content h1 em { font-style: italic; color: #7ecfa0; }
+.hero-content p { font-size: 1.07rem; line-height: 1.82; color: rgba(255,255,255,.65); max-width: 500px; margin-bottom: 40px; font-weight: 300; animation: fadeUp .7s .3s ease both; }
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp .7s .45s ease both; }
+.btn-white { background: var(--white); color: var(--navy); padding: 14px 28px; font-size: .9rem; font-weight: 600; border-radius: 8px; text-decoration: none; transition: transform .15s, background .2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-white:hover { background: #eef6f1; transform: translateY(-2px); }
+.btn-outline { background: transparent; color: var(--white); padding: 14px 28px; font-size: .9rem; font-weight: 500; border-radius: 8px; border: 1px solid rgba(255,255,255,.35); text-decoration: none; transition: background .2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-outline:hover { background: rgba(255,255,255,.1); }
+.hero-stats { position: absolute; bottom: 52px; right: 6%; display: flex; gap: 40px; animation: fadeUp .7s .6s ease both; }
+.stat { text-align: center; color: var(--white); }
+.stat strong { display: block; font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1; color: #7ecfa0; }
+.stat span { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 5px; display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+
+/* ABOUT */
+.about-wrap { background: var(--off-white); padding: 96px 6%; }
+.about-inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.label { font-size: .71rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.label::before { content: ''; width: 28px; height: 2px; background: var(--green); }
+.about-inner h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem, 3vw, 2.8rem); line-height: 1.18; color: var(--navy); margin-bottom: 18px; }
+.about-inner p { color: #5a6a7a; line-height: 1.82; font-size: .97rem; margin-bottom: 28px; }
+.text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-weight: 600; font-size: .88rem; text-decoration: none; transition: gap .2s; }
+.text-link:hover { gap: 14px; }
+.img-mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 220px 200px; gap: 12px; }
+.img-mosaic img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+.img-mosaic img:first-child { grid-row: span 2; }
+
+/* SERVICES */
+.services-section { background: var(--navy-dark); padding: 96px 6%; }
+.services-inner { max-width: 1140px; margin: 0 auto; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; gap: 20px; flex-wrap: wrap; }
+.label-light { font-size: .71rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green-light); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.label-light::before { content: ''; width: 28px; height: 2px; background: var(--green-light); }
+.section-head h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem, 3vw, 2.8rem); color: var(--white); line-height: 1.18; }
+.see-all { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.45); font-size: .85rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.15); padding-bottom: 3px; transition: color .2s, border-color .2s; white-space: nowrap; }
+.see-all:hover { color: var(--white); border-color: rgba(255,255,255,.6); }
+.cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 30px 22px; text-decoration: none; display: block; transition: background .25s, border-color .25s, transform .25s; }
+.card:hover { background: rgba(58,125,79,.14); border-color: rgba(58,125,79,.4); transform: translateY(-5px); }
+.card-ico { width: 46px; height: 46px; background: rgba(58,125,79,.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--green-light); }
+.card h3 { font-family: 'DM Serif Display', serif; font-size: 1.08rem; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+.card p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.7; }
+
+/* CTA */
+.cta { background: var(--green); padding: 72px 6%; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: var(--white); max-width: 560px; line-height: 1.2; }
+.cta h2 em { font-style: italic; opacity: .8; }
+.btn-cta { background: var(--white); color: var(--green); padding: 16px 36px; font-size: .9rem; font-weight: 700; border-radius: 8px; text-decoration: none; flex-shrink: 0; transition: background .2s, transform .15s; }
+.btn-cta:hover { background: #eef6f1; transform: translateY(-2px); }
+
+/* FOOTER */
+footer { background: var(--navy-dark); padding: 60px 6% 32px; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,.07); margin-bottom: 28px; }
+.foot-brand strong { display: block; font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 10px; }
+.foot-brand p { font-size: .84rem; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 240px; }
+.foot-col h4 { font-size: .7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.foot-col ul { list-style: none; }
+.foot-col li { margin-bottom: 10px; }
+.foot-col a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .84rem; transition: color .2s; }
+.foot-col a:hover { color: var(--white); }
+.foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.foot-bottom span { font-size: .77rem; color: rgba(255,255,255,.3); }
+.foot-bottom a { color: var(--green-light); text-decoration: none; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-stats { display: none; }
+  .about-inner, .foot-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cards-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px 6%; gap: 4px; box-shadow: 0 12px 32px rgba(0,0,0,.12); z-index: 998; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 560px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .cta { flex-direction: column; text-align: center; }
+  .img-mosaic { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .img-mosaic img:first-child { grid-row: auto; height: 220px; }
+}
+</style>
 </head>
 <body>
-    <h1>Hello, world!</h1>
+
+<nav class="navbar" id="navbar">
+  <a class="logo" href="index.html">
+    <svg viewBox="0 0 38 38" fill="none"><rect width="38" height="38" rx="8" fill="#1a2e45"/><polygon points="6,32 19,8 32,32" fill="#3a7d4f" opacity=".9"/><polygon points="12,32 26,32 20,20" fill="white" opacity=".85"/></svg>
+    <div class="logo-text"><strong>RockSolid</strong><small>Construction &amp; Consulting LLC</small></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="services.html#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Start Up Company · Orlando, FL</div>
+    <h1>Building the <em>future,</em><br>solid by design.</h1>
+    <p>RockSolid Construction & Consulting crafts robust, sustainable structures through precision engineering and innovative design management solutions.</p>
+    <div class="hero-buttons">
+      <a href="about.html" class="btn-white">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5.5" r="2.8" stroke="#1a2e45" stroke-width="1.5"/><path d="M2 14c0-3 2.5-5.5 5.5-5.5S13 11 13 14" stroke="#1a2e45" stroke-width="1.5" fill="none"/></svg>
+        Meet Ms. Santini
+      </a>
+      <a href="services.html" class="btn-outline">
+        Our Services
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><strong>4+</strong><span>Services</span></div>
+    <div class="stat"><strong>100%</strong><span>Committed</span></div>
+    <div class="stat"><strong>∞</strong><span>Vision</span></div>
+  </div>
+</section>
+
+<section class="about-wrap">
+  <div class="about-inner reveal">
+    <div>
+      <div class="label">About the founder</div>
+      <h2>Transforming architectural concepts into lasting structures</h2>
+      <p>Ms. Alexandra Paizan Santini, founder and Managing Partner, brings years of innovative vision to RockSolid. She is committed to transforming architectural concepts into robust and sustainable structures through detailed consulting and precision engineering.</p>
+      <a href="about.html" class="text-link">
+        Read full profile
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+    <div class="img-mosaic">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Construction">
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Blueprint">
+      <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&q=80" alt="Building">
+    </div>
+  </div>
+</section>
+
+<section class="services-section">
+  <div class="services-inner">
+    <div class="section-head reveal">
+      <div>
+        <div class="label-light">What we do</div>
+        <h2>Comprehensive construction<br>&amp; consulting solutions</h2>
+      </div>
+      <a href="services.html" class="see-all">See all services <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+    </div>
+    <div class="cards-grid reveal">
+      <a href="services.html" class="card">
+        <div class="card-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18 L11 4 L18 18" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><line x1="7" y1="13" x2="15" y2="13" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h3>Architectural Design &amp; Planning</h3>
+        <p>From concept to blueprint — defining innovative spaces.</p>
+      </a>
+      <a href="services.html" class="card">
+        <div class="card-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="5" y="10" width="12" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M3 10 L11 4 L19 10" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></div>
+        <h3>Construction Management</h3>
+        <p>Ensuring quality, safety, and efficiency on every site.</p>
+      </a>
+      <a href="services.html" class="card">
+        <div class="card-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="9" r="4" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M5 20 Q11 15 17 20" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+        <h3>Sustainability Consulting</h3>
+        <p>Eco-friendly solutions and energy optimization.</p>
+      </a>
+      <a href="services.html" class="card">
+        <div class="card-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="10" width="5" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="9" y="13" width="5" height="5" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="14" y="8" width="4" height="10" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></div>
+        <h3>Project Feasibility Studies</h3>
+        <p>Assessing viability and maximizing project value.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta reveal">
+  <h2>Ready to build something <em>extraordinary?</em></h2>
+  <a href="services.html#contact" class="btn-cta">Request a Consultation</a>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <strong>RockSolid</strong>
+      <p>Construction & Consulting LLC — Building the future, solid by design.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:alexandrap@email.com">alexandrap@email.com</a></li>
+        <li><a href="tel:+14079245741">+1 (407) 924-5741</a></li>
+        <li>Ms. Alexandra Paizan Santini</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2024 RockSolid Construction & Consulting LLC. All rights reserved.</span>
+    <span><a href="mailto:alexandrap@email.com">alexandrap@email.com</a></span>
+  </div>
+</footer>
+
+<script>
+  const nb = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 20));
+  const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){ x.target.classList.add('visible'); obs.unobserve(x.target); } }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
